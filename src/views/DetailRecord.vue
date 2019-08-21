@@ -2,9 +2,7 @@
   <div>
     <div class="breadcrumb-wrap">
       <a href="/history" class="breadcrumb">История</a>
-      <a class="breadcrumb">
-        Расход
-      </a>
+      <a class="breadcrumb">Расход</a>
     </div>
     <div class="row">
       <div class="col s12 m6">
