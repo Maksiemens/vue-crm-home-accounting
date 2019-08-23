@@ -3,7 +3,7 @@
     <div class="card-content">
       <span class="card-title">Домашняя бухгалтерия</span>
       <div class="input-field">
-        <input id="email" type="text" @blur="$v.email.$touch()" v-model.trim="email" :class="{invalid: ($v.email.$dirty && $v.email.required) || ($v.email.$dirty && !$v.email.email)}" />
+        <input id="email" type="email" class="validate" @blur="$v.email.$touch()" v-model.trim="email" :class="{invalid: ($v.email.$dirty && !$v.email.required) || ($v.email.$dirty && !$v.email.email)}" />
         <label for="email">Email</label>
         <small class="helper-text invalid" v-if="($v.email.$dirty && !$v.email.required)">
           Email не должен быть пустым
@@ -13,19 +13,19 @@
         </small>
       </div>
       <div class="input-field">
-        <input id="password" type="password" @blur="$v.password.$touch()" v-model.trim="password" :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}" />
+        <input id="password" type="password" class="validate" @blur="$v.password.$touch()" v-model.trim="password" :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}" />
         <label for="password">Пароль</label>
         <small class="helper-text invalid" v-if="($v.password.$dirty && !$v.password.required)">
           Введите пароль
         </small>
         <small class="helper-text invalid" v-else-if="($v.password.$dirty && !$v.password.minLength)">
-          Пароль должен быть не меньше {{$v.password.$params.minLength.min}} символов. Сейчас он {{password.length}} символов
+          Пароль должен быть не меньше {{$v.password.$params.minLength.min}} символов. Сейчас {{password.length}}
         </small>
       </div>
     </div>
     <div class="card-action">
       <div>
-        <button class="btn waves-effect waves-light auth-submit" type="submit" :disabled="$v.$invalid" >
+        <button class="btn waves-effect waves-light auth-submit" type="submit" :disabled="$v.$invalid">
           Войти
           <i class="material-icons right">send</i>
         </button>
@@ -45,7 +45,7 @@
 
 <script>
 import { email, required, minLength } from 'vuelidate/lib/validators';
-
+import messages from '@/utils/messages';
 
 export default {
   name: 'login',
@@ -53,7 +53,6 @@ export default {
   data: () =>({
     email: null,
     password: null,
-    minLengPassword: 6
   }),
 
   validations: {
@@ -63,19 +62,25 @@ export default {
     },
     password: {
       required,
-      minLength: minLength(this.minLengPassword)
+      minLength: minLength(6)
     }
   },
 
   methods: {
-    onSubmit() {
-      const formData = {
-        email: this.email,
-        password: this.password
+    async onSubmit() {
+      try {
+        await this.$store.dispatch('login', {email: this.email, password: this.password});
+        this.$router.push('/');
       }
-      console.log('formData', formData);
-      this.$router.push('/');
+      catch (error) {}
     }
   },
+
+  mounted() {
+    if(messages[this.$route.query.message]) {
+      this.$message(messages[this.$route.query.message]);
+    }
+  },
+
 };
 </script>
