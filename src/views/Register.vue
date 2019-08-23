@@ -85,7 +85,9 @@ export default {
       minLength: minLength(3)
     },
     agree: {
-      checked: value => value
+      checked(value) {
+        return value;
+      }
     }
   },
 

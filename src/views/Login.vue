@@ -69,7 +69,10 @@ export default {
   methods: {
     async onSubmit() {
       try {
-        await this.$store.dispatch('login', {email: this.email, password: this.password});
+        await this.$store.dispatch('login', {
+          email: this.email,
+          password: this.password
+        });
         this.$router.push('/');
       }
       catch (error) {}
