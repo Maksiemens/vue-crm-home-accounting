@@ -1,5 +1,5 @@
 export default {
-  apiKey: 'AIzaSyAeHyo1RKa8LQd_XLo3Lpbq8OEZPa8Z4bk',
+  apiKey: process.env.VUE_APP_FIREBASE,
   authDomain: 'vue-crm-home-accounting.firebaseapp.com',
   databaseURL: 'https://vue-crm-home-accounting.firebaseio.com',
   projectId: 'vue-crm-home-accounting',
