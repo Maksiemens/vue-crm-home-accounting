@@ -23,7 +23,7 @@ import HomeBill from '@/components/HomeBill';
 import HomeCurrency from '@/components/HomeCurrency';
 
 export default {
-  name: 'home-layout',
+  name: 'home',
 
   data: () => ({
     loading: true,
