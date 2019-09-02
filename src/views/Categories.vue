@@ -19,10 +19,9 @@ import CategoryEdit from '@/components/CategoryEdit';
 export default {
   name: 'categories',
 
-  // data: () => ({
-  //   loading: true,
-  //   currency: null
-  // }),
+  data: () => ({
+    categories: []
+  }),
 
   // async mounted() {
   //   this.currency = await this.$store.dispatch('fetchCurrency');
